@@ -38,12 +38,12 @@ void main() {
     // The path is just a string passed through to the platform layer;
     // the mock never touches the filesystem, so no real file is needed.
     await WhatsappDirectSend.send(
-      phone: '51903429745',
+      phone: '1234567890',
       text: 'Hello',
       filePath: 'fake_path/test_image.png',
     );
 
-    expect(fakePlatform.lastPhone, '51903429745');
+    expect(fakePlatform.lastPhone, '1234567890');
     expect(fakePlatform.lastText, 'Hello');
     expect(fakePlatform.lastFilePath, 'fake_path/test_image.png');
   });
@@ -53,11 +53,11 @@ void main() {
     WhatsappDirectSendPlatform.instance = fakePlatform;
 
     await WhatsappDirectSend.send(
-      phone: '51903429745',
+      phone: '1234567890',
       text: 'Text only',
     );
 
-    expect(fakePlatform.lastPhone, '51903429745');
+    expect(fakePlatform.lastPhone, '1234567890');
     expect(fakePlatform.lastText, 'Text only');
     expect(fakePlatform.lastFilePath, isNull);
   });

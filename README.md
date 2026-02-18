@@ -46,13 +46,13 @@ import 'package:whatsapp_direct_send/whatsapp_direct_send.dart';
 
 // Send text only
 await WhatsappDirectSend.send(
-  phone: '51903429745',   // E.164 without the leading "+"
+  phone: '1234567890',   // E.164 without the leading "+"
   text: 'Hello from Flutter!',
 );
 
 // Send image with text
 await WhatsappDirectSend.send(
-  phone: '51903429745',
+  phone: '1234567890',
   text: 'Check this report',
   filePath: '/data/user/0/com.example/cache/report.png',
 );

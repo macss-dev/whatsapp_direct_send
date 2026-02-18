@@ -12,13 +12,13 @@ import 'whatsapp_direct_send_platform_interface.dart';
 /// ```dart
 /// // Send text only
 /// await WhatsappDirectSend.send(
-///   phone: '51903429745',
+///   phone: '1234567890',
 ///   text: 'Hello from Flutter!',
 /// );
 ///
 /// // Send image with text
 /// await WhatsappDirectSend.send(
-///   phone: '51903429745',
+///   phone: '1234567890',
 ///   text: 'Check this out',
 ///   filePath: '/data/user/0/com.example/cache/report.png',
 /// );
@@ -27,7 +27,7 @@ class WhatsappDirectSend {
   /// Sends a message via WhatsApp to [phone].
   ///
   /// - [phone]: Phone number in E.164 format **without** the leading `+`
-  ///   (e.g. `"51903429745"`).
+  ///   (e.g. `"1234567890"`).
   /// - [text]: The text body of the message.
   /// - [filePath]: Optional absolute path to a local image file. When provided
   ///   the image is shared alongside the text.

@@ -32,7 +32,7 @@ abstract class WhatsappDirectSendPlatform extends PlatformInterface {
   /// Sends a message via WhatsApp to the given [phone] number.
   ///
   /// - [phone]: Phone number in E.164 format without the `+` sign
-  ///   (e.g. `"51903429745"`).
+  ///   (e.g. `"1234567890"`).
   /// - [text]: The text body of the message.
   /// - [filePath]: Optional absolute path to a local image file.
   ///   When provided the image is shared alongside the text.

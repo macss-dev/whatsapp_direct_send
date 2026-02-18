@@ -28,12 +28,12 @@ void main() {
 
   test('send() invokes method channel with correct arguments', () async {
     // Should complete without throwing.
-    await platform.send(phone: '51903429745', text: 'Hello');
+    await platform.send(phone: '1234567890', text: 'Hello');
   });
 
   test('send() passes filePath when provided', () async {
     await platform.send(
-      phone: '51903429745',
+      phone: '1234567890',
       text: 'With image',
       filePath: '/tmp/test.png',
     );
