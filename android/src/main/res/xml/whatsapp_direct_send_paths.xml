@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  File paths exposed by the WhatsApp Direct Send plugin's FileProvider.
+  The authority is "${applicationId}.whatsapp_direct_send.fileprovider".
+-->
+<paths xmlns:android="http://schemas.android.com/apk/res/android">
+    <cache-path name="wds_cache" path="." />
+    <external-cache-path name="wds_ext_cache" path="." />
+    <files-path name="wds_files" path="." />
+    <external-files-path name="wds_ext_files" path="." />
+</paths>
