@@ -30,14 +30,13 @@ dependencies:
 
 ### Android setup
 
-The plugin ships its own `FileProvider` and `<queries>` declarations – no
-extra manifest configuration is needed in your host app.
+The plugin ships its own `FileProvider` (a dedicated subclass
+`WhatsappDirectSendFileProvider`) and `<queries>` declarations — **no extra
+manifest configuration is needed** in your host app.
 
-> **Note:** The `FileProvider` authority used is
-> `${applicationId}.whatsapp_direct_send.fileprovider`. If your app already
-> registers a provider from `androidx.core.content.FileProvider`, make sure the
-> authorities do **not** collide (they won't, unless you manually used the same
-> suffix).
+Because the plugin uses its own `FileProvider` subclass instead of
+`androidx.core.content.FileProvider` directly, it will **not** conflict with
+other plugins or libraries that also declare a `FileProvider`.
 
 ## Usage
 

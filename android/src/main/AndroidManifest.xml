@@ -8,7 +8,7 @@
           suffix to the host application's package name.
         -->
         <provider
-            android:name="androidx.core.content.FileProvider"
+            android:name=".WhatsappDirectSendFileProvider"
             android:authorities="${applicationId}.whatsapp_direct_send.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">

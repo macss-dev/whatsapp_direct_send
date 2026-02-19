@@ -1,6 +1,6 @@
 name: whatsapp_direct_send
 description: "A Flutter plugin to send text messages and/or images directly to a WhatsApp contact on Android via ACTION_SEND intents."
-version: 0.1.0
+version: 0.1.1
 
 repository: https://github.com/macss-dev/whatsapp_direct_send
 homepage: https://github.com/macss-dev/whatsapp_direct_send
