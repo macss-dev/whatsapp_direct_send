@@ -9,6 +9,7 @@ directly to a WhatsApp contact via `ACTION_SEND` intents.
 | ----------------------------------- | :-------: |
 | Send text-only message              |    ✅     |
 | Send image with text                |    ✅     |
+| Open chat with any number           |    ✅     |
 | Auto-detect WhatsApp / WA Business  |    ✅     |
 | Fallback to system share sheet      |    ✅     |
 | Android                             |    ✅     |
@@ -40,6 +41,8 @@ other plugins or libraries that also declare a `FileProvider`.
 
 ## Usage
 
+### `send()` — text and/or image via `ACTION_SEND`
+
 ```dart
 import 'package:whatsapp_direct_send/whatsapp_direct_send.dart';
 
@@ -57,13 +60,44 @@ await WhatsappDirectSend.send(
 );
 ```
 
+> **⚠️ Limitation:** `send()` uses `ACTION_SEND` with a WhatsApp-internal
+> `jid` extra to route the message to a specific contact.
+> **This only works if the phone number already has an existing chat thread
+> in the user's WhatsApp history.** For unknown numbers WhatsApp silently
+> ignores the `jid` and shows a contact picker instead ("Send to…").
+> Use `registry()` below if you need to reach any number.
+
+### `registry()` — text to any number via Click-to-Chat
+
+```dart
+// Works for ANY number, even without prior chat history
+await WhatsappDirectSend.registry(
+  phone: '1234567890',
+  text: 'Hello from Flutter!',
+);
+```
+
+`registry()` opens the WhatsApp chat using `ACTION_VIEW` with the
+Click-to-Chat URL (`https://wa.me/{phone}?text={text}`). This works for
+**any phone number** regardless of chat history, but **does not support
+image attachments** — only text.
+
 ### Parameters
+
+#### `shareToChat()`
 
 | Parameter  | Type      | Required | Description                                   |
 | ---------- | --------- | :------: | --------------------------------------------- |
 | `phone`    | `String`  |    ✅    | Phone number in E.164 format without `+`      |
 | `text`     | `String`  |    ✅    | Message body                                  |
 | `filePath` | `String?` |    ❌    | Absolute path to a local image file to share  |
+
+#### `openChat()`
+
+| Parameter  | Type      | Required | Description                                   |
+| ---------- | --------- | :------: | --------------------------------------------- |
+| `phone`    | `String`  |    ✅    | Phone number in E.164 format without `+`      |
+| `text`     | `String`  |    ✅    | Message body (pre-filled in the chat)         |
 
 ### Error handling
 
@@ -86,7 +120,7 @@ flutter run
 ```
 
 The example provides a UI with phone/text fields, an image picker, and buttons
-to test both text-only and image+text sharing.
+to test `shareToChat()` (text-only, image+text) and `openChat()` (any number).
 
 ## License
 

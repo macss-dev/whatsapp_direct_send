@@ -74,6 +74,7 @@ class WhatsappDirectSendPlugin :
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
             "send" -> handleSend(call, result)
+            "registry" -> handleRegistry(call, result)
             else -> result.notImplemented()
         }
     }
@@ -188,6 +189,65 @@ class WhatsappDirectSendPlugin :
             }
         } catch (e: Exception) {
             Log.e(TAG, "Error sharing to WhatsApp", e)
+            result.error("SHARE_ERROR", e.message, null)
+        }
+    }
+
+    // ── Click-to-Chat via wa.me ──────────────────────────────────────
+
+    /**
+     * Opens a WhatsApp chat with the given phone number using the
+     * Click-to-Chat URL scheme (`https://wa.me/{phone}?text={text}`).
+     *
+     * This uses [Intent.ACTION_VIEW] which works for **any** phone number,
+     * regardless of whether the user has previously chatted with that number.
+     */
+    private fun handleRegistry(call: MethodCall, result: Result) {
+        val currentActivity = activity
+        if (currentActivity == null) {
+            result.error(
+                "NO_ACTIVITY",
+                "Plugin requires a foreground Activity.",
+                null,
+            )
+            return
+        }
+
+        val phone = call.argument<String>("phone") ?: ""
+        val text = call.argument<String>("text") ?: ""
+
+        try {
+            val encodedText = Uri.encode(text)
+            val url = "https://wa.me/$phone?text=$encodedText"
+
+            val viewIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+
+            val pm = currentActivity.packageManager
+            val targetPkg = resolveWhatsAppPackage(pm)
+
+            if (targetPkg != null) {
+                viewIntent.setPackage(targetPkg)
+                currentActivity.startActivity(viewIntent)
+                result.success(null)
+            } else {
+                // Try without package — system browser or share sheet
+                val resolved = pm.queryIntentActivities(
+                    viewIntent,
+                    PackageManager.MATCH_DEFAULT_ONLY,
+                )
+                if (resolved.isNotEmpty()) {
+                    currentActivity.startActivity(viewIntent)
+                    result.success(null)
+                } else {
+                    result.error(
+                        "WHATSAPP_NOT_FOUND",
+                        "No app found to handle the wa.me URL.",
+                        null,
+                    )
+                }
+            }
+        } catch (e: Exception) {
+            Log.e(TAG, "Error opening WhatsApp via wa.me", e)
             result.error("SHARE_ERROR", e.message, null)
         }
     }
