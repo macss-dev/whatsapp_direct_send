@@ -25,10 +25,7 @@ class MockWhatsappDirectSendPlatform
   }
 
   @override
-  Future<void> openChat({
-    required String phone,
-    required String text,
-  }) async {
+  Future<void> openChat({required String phone, required String text}) async {
     lastMethod = 'openChat';
     lastPhone = phone;
     lastText = text;

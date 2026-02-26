@@ -90,10 +90,7 @@ class _SendPageState extends State<SendPage> {
     _setStatus('Opening chat via wa.me…');
 
     try {
-      await WhatsappDirectSend.openChat(
-        phone: phone,
-        text: text,
-      );
+      await WhatsappDirectSend.openChat(phone: phone, text: text);
       _setStatus('Chat opened successfully via wa.me.');
     } on PlatformException catch (e) {
       _setStatus('Error: ${e.code} - ${e.message}');
@@ -265,10 +262,7 @@ class _SendPageState extends State<SendPage> {
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(
-                        _status,
-                        style: theme.textTheme.bodyMedium,
-                      ),
+                      child: Text(_status, style: theme.textTheme.bodyMedium),
                     ),
                   ],
                 ),

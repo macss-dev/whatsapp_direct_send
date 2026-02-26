@@ -15,10 +15,7 @@ class MethodChannelWhatsappDirectSend extends WhatsappDirectSendPlatform {
     required String text,
     String? filePath,
   }) async {
-    final args = <String, dynamic>{
-      'phone': phone,
-      'text': text,
-    };
+    final args = <String, dynamic>{'phone': phone, 'text': text};
     if (filePath != null) {
       args['filePath'] = filePath;
     }
@@ -26,10 +23,7 @@ class MethodChannelWhatsappDirectSend extends WhatsappDirectSendPlatform {
   }
 
   @override
-  Future<void> openChat({
-    required String phone,
-    required String text,
-  }) async {
+  Future<void> openChat({required String phone, required String text}) async {
     await methodChannel.invokeMethod<void>('registry', <String, dynamic>{
       'phone': phone,
       'text': text,

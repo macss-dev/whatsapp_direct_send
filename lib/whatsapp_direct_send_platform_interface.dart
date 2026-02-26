@@ -55,10 +55,7 @@ abstract class WhatsappDirectSendPlatform extends PlatformInterface {
   /// However, it only supports text — images cannot be attached.
   ///
   /// Throws a [PlatformException] when no app can handle the URL.
-  Future<void> openChat({
-    required String phone,
-    required String text,
-  }) {
+  Future<void> openChat({required String phone, required String text}) {
     throw UnimplementedError('openChat() has not been implemented.');
   }
 }

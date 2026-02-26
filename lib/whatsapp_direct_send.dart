@@ -63,10 +63,7 @@ class WhatsappDirectSend {
   ///
   /// Throws a `PlatformException` with code `WHATSAPP_NOT_FOUND` when no
   /// suitable app can handle the URL.
-  static Future<void> openChat({
-    required String phone,
-    required String text,
-  }) {
+  static Future<void> openChat({required String phone, required String text}) {
     return WhatsappDirectSendPlatform.instance.openChat(
       phone: phone,
       text: text,

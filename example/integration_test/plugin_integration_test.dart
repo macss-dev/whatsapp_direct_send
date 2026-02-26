@@ -13,7 +13,9 @@ import 'package:whatsapp_direct_send/whatsapp_direct_send.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('send() does not throw with empty phone', (WidgetTester tester) async {
+  testWidgets('send() does not throw with empty phone', (
+    WidgetTester tester,
+  ) async {
     // We cannot fully test the intent flow in an integration test because
     // it requires a real device with WhatsApp installed. We just verify that
     // calling the Dart side does not crash.

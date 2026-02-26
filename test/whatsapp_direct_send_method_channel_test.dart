@@ -10,18 +10,15 @@ void main() {
 
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
-        .setMockMethodCallHandler(
-      channel,
-      (MethodCall methodCall) async {
-        if (methodCall.method == 'send') {
+        .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
+          if (methodCall.method == 'send') {
+            return null;
+          }
+          if (methodCall.method == 'registry') {
+            return null;
+          }
           return null;
-        }
-        if (methodCall.method == 'registry') {
-          return null;
-        }
-        return null;
-      },
-    );
+        });
   });
 
   tearDown(() {
