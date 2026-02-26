@@ -10,16 +10,28 @@ class MockWhatsappDirectSendPlatform
   String? lastPhone;
   String? lastText;
   String? lastFilePath;
+  String? lastMethod;
 
   @override
-  Future<void> send({
+  Future<void> shareToChat({
     required String phone,
     required String text,
     String? filePath,
   }) async {
+    lastMethod = 'shareToChat';
     lastPhone = phone;
     lastText = text;
     lastFilePath = filePath;
+  }
+
+  @override
+  Future<void> openChat({
+    required String phone,
+    required String text,
+  }) async {
+    lastMethod = 'openChat';
+    lastPhone = phone;
+    lastText = text;
   }
 }
 
@@ -31,13 +43,13 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelWhatsappDirectSend>());
   });
 
-  test('send() delegates to platform interface', () async {
+  test('shareToChat() delegates to platform interface', () async {
     final fakePlatform = MockWhatsappDirectSendPlatform();
     WhatsappDirectSendPlatform.instance = fakePlatform;
 
     // The path is just a string passed through to the platform layer;
     // the mock never touches the filesystem, so no real file is needed.
-    await WhatsappDirectSend.send(
+    await WhatsappDirectSend.shareToChat(
       phone: '1234567890',
       text: 'Hello',
       filePath: 'fake_path/test_image.png',
@@ -48,11 +60,11 @@ void main() {
     expect(fakePlatform.lastFilePath, 'fake_path/test_image.png');
   });
 
-  test('send() works without filePath', () async {
+  test('shareToChat() works without filePath', () async {
     final fakePlatform = MockWhatsappDirectSendPlatform();
     WhatsappDirectSendPlatform.instance = fakePlatform;
 
-    await WhatsappDirectSend.send(
+    await WhatsappDirectSend.shareToChat(
       phone: '1234567890',
       text: 'Text only',
     );
@@ -60,5 +72,19 @@ void main() {
     expect(fakePlatform.lastPhone, '1234567890');
     expect(fakePlatform.lastText, 'Text only');
     expect(fakePlatform.lastFilePath, isNull);
+  });
+
+  test('openChat() delegates to platform interface', () async {
+    final fakePlatform = MockWhatsappDirectSendPlatform();
+    WhatsappDirectSendPlatform.instance = fakePlatform;
+
+    await WhatsappDirectSend.openChat(
+      phone: '9876543210',
+      text: 'Hello via wa.me',
+    );
+
+    expect(fakePlatform.lastMethod, 'openChat');
+    expect(fakePlatform.lastPhone, '9876543210');
+    expect(fakePlatform.lastText, 'Hello via wa.me');
   });
 }

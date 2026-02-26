@@ -18,7 +18,7 @@ void main() {
     // it requires a real device with WhatsApp installed. We just verify that
     // calling the Dart side does not crash.
     try {
-      await WhatsappDirectSend.send(phone: '', text: 'integration test');
+      await WhatsappDirectSend.shareToChat(phone: '', text: 'integration test');
     } catch (_) {
       // Expected: platform may return an error when no app handles the intent.
     }

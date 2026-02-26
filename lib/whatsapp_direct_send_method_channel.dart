@@ -10,7 +10,7 @@ class MethodChannelWhatsappDirectSend extends WhatsappDirectSendPlatform {
   final methodChannel = const MethodChannel('whatsapp_direct_send');
 
   @override
-  Future<void> send({
+  Future<void> shareToChat({
     required String phone,
     required String text,
     String? filePath,
@@ -23,5 +23,16 @@ class MethodChannelWhatsappDirectSend extends WhatsappDirectSendPlatform {
       args['filePath'] = filePath;
     }
     await methodChannel.invokeMethod<void>('send', args);
+  }
+
+  @override
+  Future<void> openChat({
+    required String phone,
+    required String text,
+  }) async {
+    await methodChannel.invokeMethod<void>('registry', <String, dynamic>{
+      'phone': phone,
+      'text': text,
+    });
   }
 }
