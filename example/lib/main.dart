@@ -73,6 +73,34 @@ class _SendPageState extends State<SendPage> {
     await _doSend(filePath: _imagePath);
   }
 
+  Future<void> _openChat() async {
+    final phone = _phoneController.text.trim();
+    final text = _textController.text.trim();
+
+    if (phone.isEmpty) {
+      _setStatus('Phone number is required.');
+      return;
+    }
+    if (text.isEmpty) {
+      _setStatus('Text message is required for openChat.');
+      return;
+    }
+
+    setState(() => _sending = true);
+    _setStatus('Opening chat via wa.me…');
+
+    try {
+      await WhatsappDirectSend.openChat(phone: phone, text: text);
+      _setStatus('Chat opened successfully via wa.me.');
+    } on PlatformException catch (e) {
+      _setStatus('Error: ${e.code} - ${e.message}');
+    } catch (e) {
+      _setStatus('Unexpected error: $e');
+    } finally {
+      setState(() => _sending = false);
+    }
+  }
+
   Future<void> _doSend({String? filePath}) async {
     final phone = _phoneController.text.trim();
     final text = _textController.text.trim();
@@ -90,7 +118,7 @@ class _SendPageState extends State<SendPage> {
     _setStatus('Sending…');
 
     try {
-      await WhatsappDirectSend.send(
+      await WhatsappDirectSend.shareToChat(
         phone: phone,
         text: text,
         filePath: filePath,
@@ -202,6 +230,16 @@ class _SendPageState extends State<SendPage> {
                 backgroundColor: theme.colorScheme.secondary,
               ),
             ),
+            const SizedBox(height: 12),
+
+            FilledButton.icon(
+              onPressed: _sending ? null : _openChat,
+              icon: const Icon(Icons.open_in_new),
+              label: const Text('Open Chat (wa.me — any number)'),
+              style: FilledButton.styleFrom(
+                backgroundColor: theme.colorScheme.tertiary,
+              ),
+            ),
             const SizedBox(height: 24),
 
             // Status
@@ -224,10 +262,7 @@ class _SendPageState extends State<SendPage> {
                     ),
                     const SizedBox(width: 8),
                     Expanded(
-                      child: Text(
-                        _status,
-                        style: theme.textTheme.bodyMedium,
-                      ),
+                      child: Text(_status, style: theme.textTheme.bodyMedium),
                     ),
                   ],
                 ),

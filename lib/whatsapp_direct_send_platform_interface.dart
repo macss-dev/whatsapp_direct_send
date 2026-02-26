@@ -39,11 +39,23 @@ abstract class WhatsappDirectSendPlatform extends PlatformInterface {
   ///
   /// Throws a [PlatformException] when WhatsApp is not installed or the
   /// file cannot be found.
-  Future<void> send({
+  Future<void> shareToChat({
     required String phone,
     required String text,
     String? filePath,
   }) {
-    throw UnimplementedError('send() has not been implemented.');
+    throw UnimplementedError('shareToChat() has not been implemented.');
+  }
+
+  /// Opens a WhatsApp chat with [phone] using the Click-to-Chat URL
+  /// (`https://wa.me/{phone}?text={text}`).
+  ///
+  /// Unlike [shareToChat], this method works for **any** phone number regardless
+  /// of whether the user has previously chatted with that number.
+  /// However, it only supports text — images cannot be attached.
+  ///
+  /// Throws a [PlatformException] when no app can handle the URL.
+  Future<void> openChat({required String phone, required String text}) {
+    throw UnimplementedError('openChat() has not been implemented.');
   }
 }
