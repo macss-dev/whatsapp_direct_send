@@ -73,15 +73,15 @@ class WhatsappDirectSendPlugin :
 
     override fun onMethodCall(call: MethodCall, result: Result) {
         when (call.method) {
-            "send" -> handleSend(call, result)
-            "registry" -> handleRegistry(call, result)
+            "shareToChat" -> handleShareToChat(call, result)
+            "openChat" -> handleOpenChat(call, result)
             else -> result.notImplemented()
         }
     }
 
     // ── Core sharing logic ──────────────────────────────────────────────
 
-    private fun handleSend(call: MethodCall, result: Result) {
+    private fun handleShareToChat(call: MethodCall, result: Result) {
         val currentActivity = activity
         if (currentActivity == null) {
             result.error(
@@ -202,7 +202,7 @@ class WhatsappDirectSendPlugin :
      * This uses [Intent.ACTION_VIEW] which works for **any** phone number,
      * regardless of whether the user has previously chatted with that number.
      */
-    private fun handleRegistry(call: MethodCall, result: Result) {
+    private fun handleOpenChat(call: MethodCall, result: Result) {
         val currentActivity = activity
         if (currentActivity == null) {
             result.error(

@@ -13,7 +13,7 @@ import 'package:whatsapp_direct_send/whatsapp_direct_send.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  testWidgets('send() does not throw with empty phone', (
+  testWidgets('shareToChat() does not throw with empty phone', (
     WidgetTester tester,
   ) async {
     // We cannot fully test the intent flow in an integration test because

@@ -19,12 +19,12 @@ class MethodChannelWhatsappDirectSend extends WhatsappDirectSendPlatform {
     if (filePath != null) {
       args['filePath'] = filePath;
     }
-    await methodChannel.invokeMethod<void>('send', args);
+    await methodChannel.invokeMethod<void>('shareToChat', args);
   }
 
   @override
   Future<void> openChat({required String phone, required String text}) async {
-    await methodChannel.invokeMethod<void>('registry', <String, dynamic>{
+    await methodChannel.invokeMethod<void>('openChat', <String, dynamic>{
       'phone': phone,
       'text': text,
     });

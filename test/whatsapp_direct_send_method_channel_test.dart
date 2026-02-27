@@ -11,10 +11,10 @@ void main() {
   setUp(() {
     TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
         .setMockMethodCallHandler(channel, (MethodCall methodCall) async {
-          if (methodCall.method == 'send') {
+          if (methodCall.method == 'shareToChat') {
             return null;
           }
-          if (methodCall.method == 'registry') {
+          if (methodCall.method == 'openChat') {
             return null;
           }
           return null;

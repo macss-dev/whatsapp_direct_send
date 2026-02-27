@@ -26,7 +26,7 @@ dependencies:
   whatsapp_direct_send:
     path: ../plugins/whatsapp_direct_send   # local
     # or from pub.dev:
-    # whatsapp_direct_send: ^0.1.0
+    # whatsapp_direct_send: ^0.2.1
 ```
 
 ### Android setup
@@ -41,43 +41,43 @@ other plugins or libraries that also declare a `FileProvider`.
 
 ## Usage
 
-### `send()` — text and/or image via `ACTION_SEND`
+### `shareToChat()` — text and/or image via `ACTION_SEND`
 
 ```dart
 import 'package:whatsapp_direct_send/whatsapp_direct_send.dart';
 
 // Send text only
-await WhatsappDirectSend.send(
+await WhatsappDirectSend.shareToChat(
   phone: '1234567890',   // E.164 without the leading "+"
   text: 'Hello from Flutter!',
 );
 
 // Send image with text
-await WhatsappDirectSend.send(
+await WhatsappDirectSend.shareToChat(
   phone: '1234567890',
   text: 'Check this report',
   filePath: '/data/user/0/com.example/cache/report.png',
 );
 ```
 
-> **⚠️ Limitation:** `send()` uses `ACTION_SEND` with a WhatsApp-internal
+> **⚠️ Limitation:** `shareToChat()` uses `ACTION_SEND` with a WhatsApp-internal
 > `jid` extra to route the message to a specific contact.
 > **This only works if the phone number already has an existing chat thread
 > in the user's WhatsApp history.** For unknown numbers WhatsApp silently
 > ignores the `jid` and shows a contact picker instead ("Send to…").
-> Use `registry()` below if you need to reach any number.
+> Use `openChat()` below if you need to reach any number.
 
-### `registry()` — text to any number via Click-to-Chat
+### `openChat()` — text to any number via Click-to-Chat
 
 ```dart
 // Works for ANY number, even without prior chat history
-await WhatsappDirectSend.registry(
+await WhatsappDirectSend.openChat(
   phone: '1234567890',
   text: 'Hello from Flutter!',
 );
 ```
 
-`registry()` opens the WhatsApp chat using `ACTION_VIEW` with the
+`openChat()` opens the WhatsApp chat using `ACTION_VIEW` with the
 Click-to-Chat URL (`https://wa.me/{phone}?text={text}`). This works for
 **any phone number** regardless of chat history, but **does not support
 image attachments** — only text.
