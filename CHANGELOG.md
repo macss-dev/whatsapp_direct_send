@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format loosely follows [Keep a Changelog](https://keepachangelog.com/)
 and the project adheres to [Semantic Versioning](https://semver.org/).
 
+## [0.2.1] - 2026-02-26
+### Fixed
+- Renamed internal method-channel identifiers from `send`/`registry` to
+  `shareToChat`/`openChat` to match the public Dart API.
+- Updated README to use current API names (`shareToChat()`, `openChat()`)
+  replacing obsolete references to `send()` and `registry()`.
+
 ## [0.2.0] - 2026-02-25
 ### Breaking Changes
 - **Renamed** `send()` → `shareToChat()` to better reflect that the method
