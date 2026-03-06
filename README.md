@@ -23,10 +23,10 @@ Add the dependency to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  whatsapp_direct_send:
-    path: ../plugins/whatsapp_direct_send   # local
-    # or from pub.dev:
-    # whatsapp_direct_send: ^0.2.1
+  whatsapp_direct_send: ^0.2.1
+  # or local:
+  # whatsapp_direct_send:
+  #   path: ../plugins/whatsapp_direct_send
 ```
 
 ### Android setup
