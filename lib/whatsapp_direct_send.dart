@@ -3,6 +3,21 @@ import 'whatsapp_direct_send_platform_interface.dart';
 /// A Flutter plugin to send text messages and/or images directly to a
 /// WhatsApp contact on Android.
 ///
+/// **This plugin is Android-only.** Calling any method on a non-Android
+/// platform (iOS, web, macOS, Windows, Linux) throws an [UnsupportedError].
+/// Guard calls with a platform check when the app targets multiple platforms:
+///
+/// ```dart
+/// import 'package:flutter/foundation.dart';
+///
+/// if (defaultTargetPlatform == TargetPlatform.android && !kIsWeb) {
+///   await WhatsappDirectSend.shareToChat(
+///     phone: '1234567890',
+///     text: 'Check this out',
+///   );
+/// }
+/// ```
+///
 /// Uses [Intent.ACTION_SEND] under the hood and automatically picks
 /// WhatsApp or WhatsApp Business if installed, falling back to the
 /// system share sheet otherwise.
